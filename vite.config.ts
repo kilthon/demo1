@@ -10,4 +10,10 @@ export default defineConfig({
       include: ['src/**/*.js', 'src/**/*.ts', 'src/**/*.vue', 'src/*.js', 'src/*.ts', 'src/*.vue'],
     }),
   ],
+  resolve: {
+    alias: {
+      '@': '/src',
+      '@views': '/src/views',
+    },
+  },
 });
