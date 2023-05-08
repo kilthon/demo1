@@ -18,6 +18,7 @@
     "*.{css,less}": "prettier src --write"
   },
   "dependencies": {
+    "pinia": "^2.0.35",
     "vite-plugin-eslint": "^1.8.1",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6"

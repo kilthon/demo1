@@ -14,6 +14,7 @@ export default defineConfig({
     alias: {
       '@': '/src',
       '@views': '/src/views',
+      '@types': '/src/types',
     },
   },
 });
