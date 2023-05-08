@@ -6,9 +6,19 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": " concurrently \"npx prettier src --write\" \"npx eslint --ext .js,.ts,.vue src\"",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{js,vue}": [
+      "prettier src --write",
+      "eslint --ext .js,.ts,.vue src"
+    ],
+    "*.{css,less}": "prettier src --write"
   },
   "dependencies": {
+    "vite-plugin-eslint": "^1.8.1",
     "vue": "^3.2.47"
   },
   "devDependencies": {
@@ -16,10 +26,14 @@
     "@typescript-eslint/eslint-plugin": "^5.59.2",
     "@typescript-eslint/parser": "^5.59.2",
     "@vitejs/plugin-vue": "^4.1.0",
+    "concurrently": "^8.0.1",
     "eslint": "^8.40.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.11.0",
     "husky": "^8.0.3",
-    "prettier": "^2.8.8",
+    "lint-staged": "^13.2.2",
+    "prettier": "2.8.8",
     "typescript": "^5.0.2",
     "vite": "^4.3.2",
     "vue-tsc": "^1.4.2"
