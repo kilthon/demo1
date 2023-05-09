@@ -7,7 +7,7 @@
       "@types/*": ["./src/types/*"],
       "@mock/*": ["./mock/*"]
     },
-    "typeRoots": ["node_modules/@types", "@types"],
+    "typeRoots": ["node_modules/@types"],
     "target": "ES2020",
     "useDefineForClassFields": true,
     "module": "ESNext",

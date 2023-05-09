@@ -22,7 +22,6 @@ export default defineConfig({
     alias: {
       '@': '/src',
       '@views': '/src/views',
-      '@types': '/src/types',
       '@mock': '/mock',
     },
   },
@@ -32,14 +31,25 @@ export default defineConfig({
     https: false,
     proxy: {
       '/api': {
-        target: `http://localhost:9999/api`,
+        target: `http://localhost:9999/`,
         changeOrigin: true,
-        rewrite: (route) => route.replace(/^\/api/, ''),
+        rewrite: (path) => {
+          return path.replace(/^\/api/, '');
+        },
       },
       '/test': {
-        target: `http://localhost:9999/test`,
+        target: `http://localhost:9999/`,
         changeOrigin: true,
-        rewrite: (route) => route.replace(/^\/test/, 't'),
+        rewrite: (route) => {
+          return route.replace(/^\/test/, '');
+        },
+      },
+      '/prod': {
+        target: `http://localhost:9999/`,
+        changeOrigin: true,
+        rewrite: (route) => {
+          return route.replace(/^\/prod/, '');
+        },
       },
     },
   },

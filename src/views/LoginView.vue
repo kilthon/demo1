@@ -2,8 +2,9 @@
 import { reactive, ref } from 'vue';
 import type { FormInstance, FormRules } from 'element-plus';
 import router from '@/router';
-import axios from 'axios';
-import process from 'process';
+// import axios from 'axios';
+import { loginApi } from '@/api';
+import type { loginType } from '@/types/api.ts';
 
 const ruleFormRef = ref<FormInstance>();
 const ruleForm = reactive({
@@ -33,17 +34,13 @@ const resetPwd = () => {
 };
 
 const handleLogin = () => {
-  let data = { name: ruleForm.name, pwd: ruleForm.pwd };
+  let data: loginType = { name: ruleForm.name, pwd: ruleForm.pwd };
   // post用data传递，传过去的是一个对象，传过去的数据在body（ctx.request.body）上
   // get用params传递，传过去的数据是直接拼接到url上的，传过去的数据在query（ctx.query）上
-  // console.log(import.meta.env.VITE_BASE_API);
+  console.log(import.meta.env.VITE_BASE_URL);
   // console.log(process.env.NODE_ENV);
-  console.log(process.env.NODE_ENV);
-  axios({
-    method: 'post',
-    url: '/api/user/login',
-    data,
-  }).then((res) => console.log(res));
+  // console.log(process.env.NODE_ENV);
+  loginApi(data);
 };
 </script>
 
