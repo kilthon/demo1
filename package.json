@@ -4,11 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --mode development",
+    "test": "vite --mode test",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "lint": " concurrently \"npx prettier src --write\" \"npx eslint --ext .js,.ts,.vue src\"",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "server": "nodemon --watch mock/**/* --exec ts-node --esm mock/server.ts"
   },
   "lint-staged": {
     "*.{js,vue}": [
@@ -18,12 +20,25 @@
     "*.{css,less}": "prettier src --write"
   },
   "dependencies": {
+    "axios": "^1.4.0",
+    "element-plus": "^2.3.4",
+    "koa": "^2.14.2",
+    "koa-bodyparser": "^4.4.0",
+    "koa-router": "^12.0.0",
+    "koa2-cors": "^2.0.6",
+    "mockjs": "^1.1.0",
     "pinia": "^2.0.35",
+    "tsc": "^2.0.4",
     "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-mock": "^3.0.0",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
+    "@types/koa-bodyparser": "^4.3.10",
+    "@types/koa-cors": "^0.0.2",
+    "@types/koa-router": "^7.4.4",
+    "@types/koa2-cors": "^2.0.2",
     "@types/node": "^20.1.0",
     "@typescript-eslint/eslint-plugin": "^5.59.2",
     "@typescript-eslint/parser": "^5.59.2",
@@ -34,8 +49,12 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.11.0",
     "husky": "^8.0.3",
+    "koa-compose": "^4.1.0",
     "lint-staged": "^13.2.2",
+    "nodemon": "^2.0.22",
     "prettier": "2.8.8",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.5.0",
     "typescript": "^5.0.2",
     "vite": "^4.3.2",
     "vue-tsc": "^1.4.2"

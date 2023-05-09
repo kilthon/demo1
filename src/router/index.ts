@@ -12,6 +12,11 @@ const routes: RouteRecordRaw[] = [
     name: 'Login',
     component: () => import(/* webpackChunkName: "login" */ '@views/LoginView.vue'),
   },
+  {
+    path: '/resetPwd',
+    name: 'resetPwd',
+    component: () => import(/* webpackChunkName: "resetPwd" */ '@views/ResetPwd.vue'),
+  },
 ];
 
 const router = createRouter({
@@ -22,8 +27,10 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   if (to.path != '/login') {
     const token = sessionStorage.getItem('token');
-    if (!token) next('/login');
-    else next();
+    if (!token) {
+      if (to.path === '/resetPwd') next();
+      else next('/login');
+    } else next();
   } else next();
 });
 

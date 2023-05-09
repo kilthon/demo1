@@ -1,15 +1,18 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import type { FormInstance, FormRules } from 'element-plus';
-import router from '@/router';
-import axios from 'axios';
-import process from 'process';
 
 const ruleFormRef = ref<FormInstance>();
 const ruleForm = reactive({
   name: '',
   pwd: '',
+  repwd: '',
 });
+
+const vldRepwd = () => {
+  if (ruleForm.repwd !== ruleForm.pwd) return new Error("Two inputs don't match!");
+  else return;
+};
 
 const rules = reactive<FormRules>({
   name: [
@@ -20,30 +23,15 @@ const rules = reactive<FormRules>({
     { required: true, message: 'Please input your password', trigger: 'blur' },
     { min: 8, max: 30, message: 'Length should be 8 to 10', trigger: 'blur' },
   ],
+  repwd: [
+    { required: true, message: 'Please input your password again', trigger: 'blur' },
+    { validator: vldRepwd, trigger: 'blur' },
+  ],
 });
 
 const resetForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   formEl.resetFields();
-};
-
-const resetPwd = () => {
-  router.push('/resetPwd');
-  // return false;
-};
-
-const handleLogin = () => {
-  let data = { name: ruleForm.name, pwd: ruleForm.pwd };
-  // post用data传递，传过去的是一个对象，传过去的数据在body（ctx.request.body）上
-  // get用params传递，传过去的数据是直接拼接到url上的，传过去的数据在query（ctx.query）上
-  // console.log(import.meta.env.VITE_BASE_API);
-  // console.log(process.env.NODE_ENV);
-  console.log(process.env.NODE_ENV);
-  axios({
-    method: 'post',
-    url: '/api/user/login',
-    data,
-  }).then((res) => console.log(res));
 };
 </script>
 
@@ -55,10 +43,12 @@ const handleLogin = () => {
     <el-form-item label="Password" prop="pwd">
       <el-input v-model="ruleForm.pwd"></el-input>
     </el-form-item>
+    <el-form-item label=" Repeat password" prop="repwd">
+      <el-input v-model="ruleForm.repwd"></el-input>
+    </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="handleLogin">确 定</el-button>
-      <el-button @click="resetForm(ruleFormRef)">取 消</el-button>
+      <el-button type="primary">Sign In</el-button>
+      <el-button @click="resetForm(ruleFormRef)">Cancel</el-button>
     </el-form-item>
   </el-form>
-  <span>Forgot<a href="javascript:;" @click="resetPwd">Password</a>?</span>
 </template>

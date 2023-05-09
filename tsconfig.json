@@ -4,8 +4,10 @@
     "paths": {
       "@/*": ["./src/*"],
       "@views/*": ["./src/views/*"],
-      "@types/*": ["./src/types/*"]
+      "@types/*": ["./src/types/*"],
+      "@mock/*": ["./mock/*"]
     },
+    "typeRoots": ["node_modules/@types", "@types"],
     "target": "ES2020",
     "useDefineForClassFields": true,
     "module": "ESNext",
@@ -15,6 +17,8 @@
     /* Bundler mode */
     "moduleResolution": "node",
     "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
@@ -26,6 +30,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "mock/**/*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

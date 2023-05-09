@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { userType } from '@/types/user';
+import type { userType } from '@/types/user';
 
 export const useUserStore = defineStore({
   id: 'user',
@@ -11,7 +11,7 @@ export const useUserStore = defineStore({
   },
   actions: {
     async register(user: userType) {
-      await console.log(user, 'user register');
+      console.log(user, 'user register');
     },
   },
 });
