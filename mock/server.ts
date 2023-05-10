@@ -3,7 +3,7 @@ import Router from 'koa-router';
 import cors from 'koa2-cors';
 import bodyParser from 'koa-bodyparser';
 import data from './static/data.json' assert { type: 'json' };
-import { UserRouter } from './api/user.ts';
+import { UserRouter } from './app/route/user.ts';
 
 const app = new Koa();
 const router = new Router();

@@ -56,4 +56,11 @@ export default defineConfig({
   define: {
     'process.env': {},
   },
+  css: {
+    preprocessorOptions: {
+      less: {
+        javaScrirptEnabled: true,
+      },
+    },
+  },
 });

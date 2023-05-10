@@ -20,8 +20,10 @@
     "*.{css,less}": "prettier src --write"
   },
   "dependencies": {
+    "@types/jsonwebtoken": "^9.0.2",
     "axios": "^1.4.0",
     "element-plus": "^2.3.4",
+    "jsonwebtoken": "^9.0.0",
     "koa": "^2.14.2",
     "koa-bodyparser": "^4.4.0",
     "koa-router": "^12.0.0",
@@ -50,6 +52,7 @@
     "eslint-plugin-vue": "^9.11.0",
     "husky": "^8.0.3",
     "koa-compose": "^4.1.0",
+    "less": "^4.1.3",
     "lint-staged": "^13.2.2",
     "nodemon": "^2.0.22",
     "prettier": "2.8.8",
