@@ -4,7 +4,6 @@ import axios, {
   AxiosError,
   AxiosInstance,
   AxiosRequestConfig,
-  // AxiosRequestConfig,
   AxiosResponse,
   // InternalAxiosRequestConfig,
 } from 'axios';
@@ -77,9 +76,6 @@ export const http = {
   get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
     return instance.get(url, config);
   },
-  // get(url: string, config?: AxiosRequestConfig) {
-  //   return instance.get(url, config);
-  // },
   post<T = any>(url: string, data: object, config?: AxiosRequestConfig): Promise<T> {
     return instance.post(url, data, config);
   },

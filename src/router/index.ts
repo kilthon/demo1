@@ -6,16 +6,33 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     name: 'Home',
     component: HomeView,
+    meta: {
+      requireToken: true,
+    },
   },
   {
     path: '/login',
     name: 'Login',
     component: () => import(/* webpackChunkName: "login" */ '@views/LoginView.vue'),
+    meta: {
+      requireToken: false,
+    },
   },
   {
     path: '/resetPwd',
     name: 'resetPwd',
     component: () => import(/* webpackChunkName: "resetPwd" */ '@views/ResetPwd.vue'),
+    meta: {
+      requireToken: false,
+    },
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: () => import(/* webpackChunkName: "register" */ '@views/RegisterView.vue'),
+    meta: {
+      requireToken: false,
+    },
   },
 ];
 
@@ -25,11 +42,10 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.path != '/login') {
+  if (to.meta.requireToken) {
     const token = sessionStorage.getItem('token');
     if (!token) {
-      if (to.path === '/resetPwd') next();
-      else next('/login');
+      next('/login');
     } else next();
   } else next();
 });
