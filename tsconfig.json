@@ -5,7 +5,9 @@
       "@/*": ["./src/*"],
       "@views/*": ["./src/views/*"],
       "@types/*": ["./src/types/*"],
-      "@mock/*": ["./mock/*"]
+      "@mock/*": ["./mock/*"],
+      "@store/*": ["./src/stroe/*"],
+      "@cmp/*": ["./src/components/*"]
     },
     "typeRoots": ["node_modules/@types"],
     "target": "ES2020",

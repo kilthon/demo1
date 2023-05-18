@@ -1,7 +1,10 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+// import { storeToRefs } from 'pinia';
+import { pinia, useUserStore } from '@/store';
+import { genRoute } from '@/util/route';
 import HomeView from '@views/HomeView.vue';
 
-const routes: RouteRecordRaw[] = [
+const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
@@ -34,6 +37,24 @@ const routes: RouteRecordRaw[] = [
       requireToken: false,
     },
   },
+  {
+    path: '/404',
+    name: 'notFound',
+    component: () => import(/* webpackChunkName: "notFound" */ '@views/NotFound.vue'),
+    meta: {
+      requireToken: false,
+    },
+  },
+  {
+    path: '/:W+',
+    component: () => import(/* webpackChunkName: "baseLayout" */ '@views/BaseLayout.vue'),
+    name: 'BaseLayout',
+    redirect: '/404',
+    meta: {
+      hidden: true,
+    },
+    children: [],
+  },
 ];
 
 const router = createRouter({
@@ -41,13 +62,38 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  if (to.meta.requireToken) {
-    const token = sessionStorage.getItem('token');
-    if (!token) {
-      next('/login');
-    } else next();
-  } else next();
+router.beforeEach(async (to, from, next) => {
+  const userStore = useUserStore(pinia);
+  if (to.fullPath === '/login' || to.fullPath === '/register') {
+    next();
+  } else {
+    if (to.meta.requireToken === false && to.redirectedFrom === undefined) {
+      next();
+    } else {
+      const token = sessionStorage.getItem('token');
+      if (!token) {
+        next('/login');
+      } else {
+        const dynRoutes = genRoute(userStore.menu);
+        dynRoutes.forEach((item) => router.addRoute(item));
+        if (router.getRoutes().findIndex((route) => route.path === to.path) !== -1) {
+          if (
+            to.fullPath === '/404' &&
+            to.redirectedFrom !== undefined &&
+            router.getRoutes().findIndex((route) => route.path === to.redirectedFrom?.fullPath) !==
+              -1 &&
+            routes.findIndex((item) => item.path === to.redirectedFrom?.fullPath) === -1
+          ) {
+            next({ path: to.redirectedFrom.fullPath, replace: true });
+          } else {
+            next();
+          }
+        } else {
+          next('/');
+        }
+      }
+    }
+  }
 });
 
 export default router;

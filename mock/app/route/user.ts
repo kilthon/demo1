@@ -8,4 +8,5 @@ router.prefix('/user');
 
 router.post('/login', user.login);
 router.post('/register', user.register);
+router.post('/getMenu', user.getMenu);
 export { router as UserRouter };

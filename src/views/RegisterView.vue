@@ -4,7 +4,6 @@ import type { FormInstance, FormRules } from 'element-plus';
 import router from '@/router';
 import { registerApi, getCodeApi } from '@/api';
 import type { registerType } from '@/types/api.ts';
-// import { getCodeApi } from '@/api';
 
 const ruleFormRef = ref<FormInstance>();
 const ruleForm = reactive({
@@ -46,7 +45,6 @@ const resetForm = (formEl: FormInstance | undefined) => {
 const setCodeSvg = (data: string) => {
   const node = document.createElement('el-form-item');
   node.innerHTML = data;
-  // const wrapper = document.querySelector('.wrapper');
   const buttonNode = document.querySelector('.button');
   const parenNode = buttonNode?.parentNode;
   if (buttonNode && parenNode) parenNode.insertBefore(node, buttonNode);
@@ -76,27 +74,45 @@ getCodeApi().then((res) => {
 </script>
 
 <template>
-  <el-text style="display: block; margin-bottom: 10px">注&nbsp;&nbsp;册</el-text>
-  <div class="wrapper">
-    <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" label-width="80px">
-      <el-form-item label="Name" prop="name">
-        <el-input v-model="ruleForm.name"></el-input>
-      </el-form-item>
-      <el-form-item label="Password" prop="pwd">
-        <el-input v-model="ruleForm.pwd"></el-input>
-      </el-form-item>
-      <el-form-item label="Repeat" prop="repwd">
-        <el-input v-model="ruleForm.repwd"></el-input>
-      </el-form-item>
-      <el-form-item label="Code" prop="code" class="code">
-        <el-input v-model="ruleForm.code"></el-input>
-      </el-form-item>
-      <el-form-item class="button">
-        <div>
-          <el-button type="primary" @click="handleRegister(ruleFormRef)">确 定</el-button>
-          <el-button @click="resetForm(ruleFormRef)">取 消</el-button>
-        </div>
-      </el-form-item>
-    </el-form>
+  <div class="container">
+    <el-text style="display: block; margin-bottom: 10px">注&nbsp;&nbsp;册</el-text>
+    <div class="wrapper">
+      <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" label-width="80px">
+        <el-form-item label="Name" prop="name">
+          <el-input v-model="ruleForm.name"></el-input>
+        </el-form-item>
+        <el-form-item label="Password" prop="pwd">
+          <el-input v-model="ruleForm.pwd"></el-input>
+        </el-form-item>
+        <el-form-item label="Repeat" prop="repwd">
+          <el-input v-model="ruleForm.repwd"></el-input>
+        </el-form-item>
+        <el-form-item label="Code" prop="code" class="code">
+          <el-input v-model="ruleForm.code"></el-input>
+        </el-form-item>
+        <el-form-item class="button">
+          <div>
+            <el-button type="primary" @click="handleRegister(ruleFormRef)">确 定</el-button>
+            <el-button @click="resetForm(ruleFormRef)">取 消</el-button>
+          </div>
+        </el-form-item>
+      </el-form>
+    </div>
   </div>
 </template>
+
+<style lang="less" scoped>
+.container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+  }
+}
+</style>

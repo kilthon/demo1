@@ -15,3 +15,7 @@ export type codeType = {
   captcha: svgCaptcha.CaptchaObj;
   token: string;
 };
+
+export type getMenuType = {
+  token: string;
+};

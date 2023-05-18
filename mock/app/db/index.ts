@@ -14,6 +14,7 @@ interface userSchemaIF {
   name: string;
   pwd: string;
   token: string;
+  menu: [object];
 }
 const userSchema = new Schema<userSchemaIF>({
   name: {
@@ -26,6 +27,10 @@ const userSchema = new Schema<userSchemaIF>({
   },
   token: {
     type: String,
+    required: true,
+  },
+  menu: {
+    type: [Object],
     required: true,
   },
 });

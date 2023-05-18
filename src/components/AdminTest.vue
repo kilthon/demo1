@@ -1,0 +1,1 @@
+<template>admintest</template>

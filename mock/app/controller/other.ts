@@ -1,6 +1,4 @@
 import Koa from 'koa';
-// import { Code } from '../db/index.ts';
-// import { create_token } from '../../utils/token.ts';
 import svgCaptcha from 'svg-captcha';
 
 // 获取验证码

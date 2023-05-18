@@ -1,0 +1,1 @@
+<template>reportCmp</template>

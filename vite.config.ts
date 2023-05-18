@@ -23,6 +23,8 @@ export default defineConfig({
       '@': '/src',
       '@views': '/src/views',
       '@mock': '/mock',
+      '@store': '/src/store',
+      '@cmp': '/src/components',
     },
   },
   server: {
