@@ -1,10 +1,10 @@
 import { ref, reactive } from 'vue';
 import { defineStore } from 'pinia';
 import type { userType } from '@/types/user';
-import { generateRoutes } from '@/util/route';
-import { RouteRecordRaw } from 'vue-router';
-import router from '@/router';
-import { getMenuApi } from '@/api';
+// import { generateRoutes } from '@/util/route';
+// import { RouteRecordRaw } from 'vue-router';
+// import router from '@/router';
+// import { getMenuApi } from '@/api';
 
 export const useUserStore = defineStore({
   id: 'user',
@@ -12,24 +12,19 @@ export const useUserStore = defineStore({
     return {
       isLogin: ref(false),
       menu: reactive([] as any[]),
-      userRoutes: reactive([] as RouteRecordRaw[]),
       users: [] as any[],
       user: {},
     };
   },
   actions: {
-    genRoute() {
-      const routes = generateRoutes('', this.menu);
-      this.userRoutes = routes;
-      routes.forEach((item) => router.addRoute(item));
+    setMenu(menu: [object]) {
+      this.menu = menu;
     },
-    getMenu(token: string, genRoute: boolean) {
-      getMenuApi({ token: token }).then((res) => {
-        if (res) {
-          this.menu = res.menu;
-          if (genRoute) this.genRoute();
-        }
-      });
+    setLogin(isLogin: boolean) {
+      this.isLogin = isLogin;
+    },
+    setAccess() {
+      console.log(this.menu);
     },
     async register(user: userType) {
       console.log(user, 'user register');

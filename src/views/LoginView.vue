@@ -48,7 +48,8 @@ const handleLogin = (formEl: FormInstance | undefined) => {
         // console.log(import.meta.env.VITE_BASE_URL);
         loginApi(data).then((res) => {
           if (res) {
-            userStore.$state.isLogin = true;
+            userStore.setMenu(res.menu);
+            userStore.setLogin(true);
             userStore.$state.menu = res.menu;
             let token = res.token;
             sessionStorage.setItem('token', token);

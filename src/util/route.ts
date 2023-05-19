@@ -1,10 +1,7 @@
 import router from '@/router';
 import { getMenuApi } from '@/api';
-const modules = import.meta.glob([
-  '../components/*.vue',
-  '../components/*/*.vue',
-  '../components/*/*/*.vue',
-]);
+import LayoutIdxVue from '@/layouts/LayoutIdx.vue';
+const modules = import.meta.glob(['../views/*.vue', '../views/*/*.vue', '../views/*/*/*.vue']);
 
 const genRouteName = (name: string, ch: string, path: boolean) => {
   let str = name;
@@ -15,7 +12,7 @@ const genRouteName = (name: string, ch: string, path: boolean) => {
     str = str.replace(ch, '');
     str = str.substring(0, idx) + str[idx].toUpperCase() + str.substring(idx + 1);
   }
-  if (path && idx === -1) str += 'Cmp';
+  if (path && idx === -1) str += 'View';
   return str;
 };
 
@@ -36,16 +33,18 @@ export const generateRoutes = (faRoute: string, data: any[]) => {
         faRoute === '' ? '/' + genRouteName(item, '-', false) : genRouteName(item, '-', false);
       const meta = { requireToken: true };
       const cmpPath = genCmpPath(faRoute, item);
-      const component = modules[`../components${cmpPath}.vue`]();
+      // const component = modules[`../views${cmpPath}.vue`]();
+      const component = modules[`../views${cmpPath}.vue`];
       arr.push({ path, name, component, meta });
     } else {
       Object.keys(item).forEach((key) => {
         const meta = { requireToken: true };
+        const component = LayoutIdxVue;
         const path =
           faRoute === '' ? '/' + genRouteName(key, '_', false) : genRouteName(key, '_', false);
         const str = genRouteName(key, '_', false);
         const children = generateRoutes(faRoute + '/' + str, item[key]);
-        arr.push({ path, name: str, meta, children });
+        arr.push({ path, component, name: str, meta, children });
       });
     }
   });

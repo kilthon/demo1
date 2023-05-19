@@ -2,16 +2,26 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 // import { storeToRefs } from 'pinia';
 import { pinia, useUserStore } from '@/store';
 import { genRoute } from '@/util/route';
-import HomeView from '@views/HomeView.vue';
+// import HomeView from '@views/HomeView.vue';
+import WorkSpace from '@views/Workspace/WorkspaceView.vue';
+import LayoutIdxVue from '@/layouts/LayoutIdx.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'Home',
-    component: HomeView,
-    meta: {
-      requireToken: true,
-    },
+    name: 'Index',
+    component: LayoutIdxVue,
+    redirect: '/WorkSpace',
+    children: [
+      {
+        path: '/WorkSpace',
+        name: 'WorkSpace',
+        component: WorkSpace,
+        meta: {
+          requireToken: true,
+        },
+      },
+    ],
   },
   {
     path: '/login',
@@ -47,7 +57,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/:W+',
-    component: () => import(/* webpackChunkName: "baseLayout" */ '@views/BaseLayout.vue'),
+    component: () => import(/* webpackChunkName: "baseLayout" */ '@/layouts/BaseLayout.vue'),
     name: 'BaseLayout',
     redirect: '/404',
     meta: {
